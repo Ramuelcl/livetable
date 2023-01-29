@@ -25,8 +25,8 @@ models:
     language: string:5 default:'fr-FR' charset:'utf8'
     autologin: boolean default:true
     softDeletes: true
-    relationships:
-      hasOne: User
+    # relationships:
+    #   hasOne: User
 
   backend\Marcador:
     nombre: string:45 nullable default:null unique charset:'utf8'
@@ -61,13 +61,13 @@ models:
     codPostal: string:6
     ciudad_id: id:Ciudad foreign nullable default:null
     relationships:
-      BelongsTo: Entidad:entidades
+      BelongsTo: Entidad:xEntidades
 
   backend\Telefono:
     tipo: string:2
     numero: string:13
     relationships:
-      BelongsToMany: Entidad:entidades
+      BelongsToMany: Entidad:xEntidades
 
   backend\Entidad:
     tipo: enum:perfil,cliente,proveedor,cli_pro
@@ -77,8 +77,8 @@ models:
     activo: boolean default:true
     eMail: string unique
     relationships:
-      hasMany: Direccion:direcciones, Telefono:telefonos
-      morphedByMany: Cliente:clienteIndex, Vendedor:vendedorIndex, Perfil:perfilIndex
+      hasMany: Direccion:xDirecciones, Telefono:xTelefonos
+      morphedByMany: Cliente:clienteIndex, Vendedor:vendedorIndex, Perfil:perfilIndex, Movimiento:movimientoIndex
 
   backend\Tabla:
     id: false
@@ -97,8 +97,31 @@ models:
 
   ventas\Cliente:
     nombre: string
+    relationships:
+      BelongsToMany: Movimiento:xMovimientos
 
   compras\Vendedor:
     nombre: string
 
-seeder: Pais, Ciudad, Direccion, Entidad, Tabla
+  banca\Traspaso:
+    id: false
+    cuenta: string:12 nullable default:5578733W020
+    tipo: string:3 nullable default:CCP
+    date: timestamp nullable
+    libelle: text
+    montant: decimal:8,2
+    archivo: string:20
+    softDeletes: true
+
+  banca\Movimiento:
+    cuenta: string:12 nullable default:5578733W020
+    tipo: string:3 nullable default:CCP
+    date: timestamp
+    libelle: string
+    montant: decimal:8,2
+    cliente_id: bigInteger nullable default:null
+    indexes:
+      - index: cuenta, date
+    softDeletes: true
+
+# seeder: Pais, Ciudad, Direccion, Entidad, Tabla

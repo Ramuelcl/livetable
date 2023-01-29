@@ -33,12 +33,12 @@ class Entidad extends Model
         'activo' => 'boolean',
     ];
 
-    public function direcciones()
+    public function xDirecciones()
     {
         return $this->hasMany(Direccion::class);
     }
 
-    public function telefonos()
+    public function xTelefonos()
     {
         return $this->hasMany(Telefono::class);
     }
@@ -56,5 +56,10 @@ class Entidad extends Model
     public function perfilIndices()
     {
         return $this->morphedByMany(Perfil::class, 'entidadable');
+    }
+
+    public function movimientoIndices()
+    {
+        return $this->morphedByMany(\App\Models\banca\Movimiento::class, 'entidadable');
     }
 }

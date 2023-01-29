@@ -1,4 +1,6 @@
 <?php
+// /resources/views/components/layouts/layout.blade.php
+// /app/View/Components/layouts/layout.php
 
 namespace App\View\Components\layouts;
 

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models\ventas;
+namespace App\Models\banca;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cliente extends Model
+class Traspaso extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +16,12 @@ class Cliente extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre',
+        'cuenta',
+        'tipo',
+        'date',
+        'libelle',
+        'montant',
+        'archivo',
     ];
 
     /**
@@ -24,11 +30,7 @@ class Cliente extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
+        'date' => 'timestamp',
+        'montant' => 'decimal:2',
     ];
-
-    public function movimientos()
-    {
-        return $this->belongsToMany(\App\Models\banca\Movimiento::class, 'xMovimientos');
-    }
 }

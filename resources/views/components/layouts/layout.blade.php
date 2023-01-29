@@ -1,3 +1,5 @@
+<!-- /resources/views/components/layouts/layout.blade.php
+/app/View/Components/layouts/layout.php  -->
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -33,7 +35,8 @@
     <x-jet-banner />
 
     <div class="min-h-screen">
-        @livewire('navigation-menu')
+
+        <x-navigation-menu />
 
         <!-- Page Heading -->
         @if (isset($header))

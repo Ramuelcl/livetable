@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEntidadesTable extends Migration
+class CreateXMovimientosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,9 @@ class CreateEntidadesTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('entidades', function (Blueprint $table) {
-            $table->foreignId('entidad_id');
-            $table->foreignId('telefono_id');
+        Schema::create('xMovimientos', function (Blueprint $table) {
+            $table->foreignId('cliente_id');
+            $table->foreignId('movimiento_id');
         });
 
         Schema::enableForeignKeyConstraints();
@@ -30,6 +30,6 @@ class CreateEntidadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entidades');
+        Schema::dropIfExists('xMovimientos');
     }
 }

@@ -4,16 +4,16 @@ namespace Database\Factories\backend;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\backend\Tabla;
+use App\Models\backend\Marcador;
 
-class TablaFactory extends Factory
+class MarcadorFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Tabla::class;
+    protected $model = Marcador::class;
 
     /**
      * Define the model's default state.
@@ -23,14 +23,13 @@ class TablaFactory extends Factory
     public function definition()
     {
         return [
-            'tabla' => $this->faker->numberBetween(-100000, 100000),
-            'tabla_id' => $this->faker->numberBetween(-100000, 100000),
             'nombre' => $this->faker->regexify('[A-Za-z0-9]{45}'),
-            'descripcion' => $this->faker->regexify('[A-Za-z0-9]{128}'),
+            'babosa' => $this->faker->regexify('[A-Za-z0-9]{45}'),
+            'hexa' => $this->faker->regexify('[A-Za-z0-9]{7}'),
+            'imagen' => $this->faker->regexify('[A-Za-z0-9]{128}'),
+            'rgb' => $this->faker->regexify('[A-Za-z0-9]{20}'),
+            'metadata' => '{}',
             'activo' => $this->faker->boolean,
-            'valor1' => $this->faker->randomFloat(2, 0, 999999.99),
-            'valor2' => $this->faker->regexify('[A-Za-z0-9]{128}'),
-            'valor3' => $this->faker->boolean,
         ];
     }
 }

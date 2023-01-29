@@ -30,6 +30,6 @@ class Telefono extends Model
 
     public function entidads()
     {
-        return $this->belongsToMany(Entidad::class, 'entidades');
+        return $this->belongsToMany(Entidad::class, 'xEntidades');
     }
 }
