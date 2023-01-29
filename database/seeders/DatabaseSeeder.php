@@ -41,23 +41,9 @@ class DatabaseSeeder extends Seeder
         // dd(public_path(), storage_path(), public_path("storage"), storage_path('storage'), env('APP_URL').'/public/storage', $folders, $folder);
 
         $this->call([
-            // RoleSeeder::class,
-            UserSeeder::class,
-            //
             TablaSeeder::class,
-            PaisSeeder::class,
-            DireccionSeeder::class,
-            // TelefonoSeeder::class,
-            CategoriaSeeder::class,
-            MarcadorSeeder::class,
-            //
-            // BancaSeeder::class,
-            // CompteSeeder::class,
-            // MouvementSeeder::class,
-            // CursoSeeder::class,
-            // ClientSeeder::class,
-            // ProjectSeeder::class,
-            // InvoiceSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

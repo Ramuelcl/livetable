@@ -23,14 +23,10 @@ class TablaFactory extends Factory
     public function definition()
     {
         return [
-            'tabla' => $this->faker->numberBetween(-100000, 100000),
-            'tabla_id' => $this->faker->numberBetween(-100000, 100000),
-            'nombre' => $this->faker->regexify('[A-Za-z0-9]{45}'),
-            'descripcion' => $this->faker->regexify('[A-Za-z0-9]{128}'),
-            'activo' => $this->faker->boolean,
-            'valor1' => $this->faker->randomFloat(2, 0, 999999.99),
-            'valor2' => $this->faker->regexify('[A-Za-z0-9]{128}'),
-            'valor3' => $this->faker->boolean,
+            'descripcion' => $this->faker->words(
+                $nb = \rand($min = 2, $max = 4),
+                $asText = true
+            ),
         ];
     }
 }

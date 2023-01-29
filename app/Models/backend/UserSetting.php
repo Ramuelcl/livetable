@@ -15,12 +15,7 @@ class UserSetting extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'user_id',
-        'theme',
-        'language',
-        'autologin',
-    ];
+    protected $fillable = ['user_id', 'theme', 'language', 'autologin'];
 
     /**
      * The attributes that should be cast to native types.
@@ -34,11 +29,6 @@ class UserSetting extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(\App\Models\User::class);
     }
 }

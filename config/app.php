@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'fr_FR',
 
     /*
     |--------------------------------------------------------------------------
@@ -185,7 +185,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Application Service Providers...
          */
