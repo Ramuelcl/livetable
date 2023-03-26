@@ -1,6 +1,5 @@
 <div>
-  <div
-    class="m-auto flex h-auto flex-grow justify-between overflow-hidden border border-gray-200 px-4 align-middle text-gray-500 shadow">
+  <div class="m-auto flex h-auto flex-grow justify-between overflow-hidden border px-4 align-middle shadow">
     @isset($regs)
       @include('livewire.backend.selectXPage')
       @endif
@@ -22,7 +21,7 @@
 
     <x-forms.table caption="Usuarios">
       <x-slot name="titles">
-        <tr>
+        <tr class="px-6 py-3 text-left text-xs font-medium tracking-wider">
           @foreach ($fields as $field)
             @if ($field['table']['display'])
               @php
@@ -30,20 +29,19 @@
                 $orden = in_array($field['name'], $fieldsOrden) ? $field['name'] : null;
                 $uppercase = $field['name'] == $sortField ? 'uppercase font-bold' : 'capitalize';
               @endphp
+
               @if ($field['name'] == 'is_active')
                 @if (!$activeAll)
-                  <th scope="col"
-                    class="bg-gray-50 px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500">
+                  <th scope="col">
                     {{ __($field['table']['titre']) }}
                   </th>
                 @else
-                  <th scope="col"
-                    class="bg-gray-50 px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500">
+                  <th scope="col">
                   </th>
                 @endif
               @else
                 <th wire:click="fncOrden('{{ $orden }}')" scope="col"
-                  class="{{ $orden ? 'cursor-pointer' : '' }} {{ $uppercase }} bg-gray-50 px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500">
+                  class="{{ $orden ? 'cursor-pointer' : '' }} {{ $uppercase }}">
                   {{ __($field['table']['titre']) }}
                   <x-sort-icon campo="{{ $field['name'] }}" :sortDir="$sortDir" :sortField="$sortField" />
                 </th>
