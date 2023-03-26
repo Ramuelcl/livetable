@@ -25,10 +25,12 @@ class MovimientoFactory extends Factory
         return [
             'cuenta' => $this->faker->regexify('[A-Za-z0-9]{12}'),
             'tipo' => $this->faker->regexify('[A-Za-z0-9]{3}'),
-            'date' => $this->faker->dateTime(),
-            'libelle' => $this->faker->word,
+            'dateMouvement' => $this->faker->date(),
+            'libelle' => $this->faker->text,
             'montant' => $this->faker->randomFloat(2, 0, 999999.99),
             'cliente_id' => $this->faker->numberBetween(-100000, 100000),
+            'releve' => $this->faker->numberBetween(-100000, 100000),
+            'dateReleve' => $this->faker->date(),
         ];
     }
 }

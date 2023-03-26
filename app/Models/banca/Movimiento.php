@@ -18,10 +18,12 @@ class Movimiento extends Model
     protected $fillable = [
         'cuenta',
         'tipo',
-        'date',
+        'dateMouvement',
         'libelle',
         'montant',
         'cliente_id',
+        'releve',
+        'dateReleve',
     ];
 
     /**
@@ -31,8 +33,10 @@ class Movimiento extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'date' => 'timestamp',
+        'dateMouvement' => 'date',
         'montant' => 'decimal:2',
         'cliente_id' => 'integer',
+        'releve' => 'integer',
+        'dateReleve' => 'date',
     ];
 }

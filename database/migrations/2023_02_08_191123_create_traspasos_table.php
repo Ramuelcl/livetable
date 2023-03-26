@@ -16,14 +16,13 @@ class CreateTraspasosTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('traspasos', function (Blueprint $table) {
-            $table->string('cuenta', 12)->nullable()->default('5578733W020');
-            $table->string('tipo', 3)->nullable()->default('CCP');
-            $table->timestamp('date')->nullable();
+            $table->id();
+            $table->date('dateImportation')->nullable();
             $table->text('libelle');
-            $table->decimal('montant', 8, 2);
-            $table->string('archivo', 20);
-            $table->softDeletes();
-            $table->timestamps();
+            $table->decimal('montant', 8, 2)->nullable()->default(0);
+            $table->string('archivo', 100)->nullable()->default(null);
+            $table->text('dupTxt')->charset('utf8');
+            $table->unsignedBigInteger('archivado')->nullable()->default(0);
         });
 
         Schema::enableForeignKeyConstraints();

@@ -7,7 +7,6 @@ module.exports = {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        "./node_modules/flowbite/**/*.js",
     ],
     // make sure to safelist these classes when using purge
     safelist: [

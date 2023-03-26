@@ -1,0 +1,1 @@
+SELECT DISTINCT tabla_id, nombre, descripcion, valor1 FROM tablas WHERE tabla=15100 AND activo=true

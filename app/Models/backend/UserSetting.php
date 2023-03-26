@@ -32,6 +32,11 @@ class UserSetting extends Model
         'autologin' => 'boolean',
     ];
 
+    public function user1()
+    {
+        return $this->hasOne(\App\Models\User::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class);

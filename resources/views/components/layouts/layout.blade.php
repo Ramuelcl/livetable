@@ -13,6 +13,10 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
+    <!-- FontAwesome 6.2.1 -->
+    <!-- <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}"> -->
+    <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.min.css')}}">
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -32,7 +36,7 @@
 </head>
 
 <body class="font-sans antialiased bg-gray-200 dark:bg-gray-800">
-    <x-jet-banner />
+    <!-- <x-jet-banner /> -->
 
     <div class="min-h-screen">
 

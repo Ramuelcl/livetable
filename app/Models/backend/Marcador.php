@@ -46,7 +46,7 @@ class Marcador extends Model
         return $this->morphedByMany(Video::class, 'marcadorable');
     }
 
-    public function imagenIndices()
+    public function imagenIndexMovimientos()
     {
         return $this->morphedByMany(Imagen::class, 'marcadorable');
     }

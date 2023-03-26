@@ -13,25 +13,25 @@ created:
     - database/factories/compras/VendedorFactory.php
     - database/factories/banca/TraspasoFactory.php
     - database/factories/banca/MovimientoFactory.php
-    - database/migrations/2023_01_29_200501_create_categorias_table.php
-    - database/migrations/2023_01_29_200502_create_perfils_table.php
-    - database/migrations/2023_01_29_200503_create_user_settings_table.php
-    - database/migrations/2023_01_29_200504_create_marcadors_table.php
-    - database/migrations/2023_01_29_200505_create_pais_table.php
-    - database/migrations/2023_01_29_200506_create_ciudads_table.php
-    - database/migrations/2023_01_29_200507_create_direccions_table.php
-    - database/migrations/2023_01_29_200508_create_telefonos_table.php
-    - database/migrations/2023_01_29_200509_create_entidads_table.php
-    - database/migrations/2023_01_29_200510_create_tablas_table.php
-    - database/migrations/2023_01_29_200511_create_clientes_table.php
-    - database/migrations/2023_01_29_200512_create_vendedors_table.php
-    - database/migrations/2023_01_29_200513_create_traspasos_table.php
-    - database/migrations/2023_01_29_200514_create_movimientos_table.php
-    - database/migrations/2023_01_29_200515_create_xEntidades_table.php
-    - database/migrations/2023_01_29_200516_create_xMovimientos_table.php
-    - database/migrations/2023_01_29_200517_create_categoriaables_table.php
-    - database/migrations/2023_01_29_200518_create_marcadorables_table.php
-    - database/migrations/2023_01_29_200519_create_entidadables_table.php
+    - database/migrations/2023_02_08_191111_create_categorias_table.php
+    - database/migrations/2023_02_08_191112_create_perfils_table.php
+    - database/migrations/2023_02_08_191113_create_user_settings_table.php
+    - database/migrations/2023_02_08_191114_create_marcadors_table.php
+    - database/migrations/2023_02_08_191115_create_pais_table.php
+    - database/migrations/2023_02_08_191116_create_ciudads_table.php
+    - database/migrations/2023_02_08_191117_create_direccions_table.php
+    - database/migrations/2023_02_08_191118_create_telefonos_table.php
+    - database/migrations/2023_02_08_191119_create_entidads_table.php
+    - database/migrations/2023_02_08_191120_create_tablas_table.php
+    - database/migrations/2023_02_08_191121_create_clientes_table.php
+    - database/migrations/2023_02_08_191122_create_vendedors_table.php
+    - database/migrations/2023_02_08_191123_create_traspasos_table.php
+    - database/migrations/2023_02_08_191124_create_movimientos_table.php
+    - database/migrations/2023_02_08_191125_create_xEntidades_table.php
+    - database/migrations/2023_02_08_191126_create_xMovimientos_table.php
+    - database/migrations/2023_02_08_191127_create_categoriaables_table.php
+    - database/migrations/2023_02_08_191128_create_marcadorables_table.php
+    - database/migrations/2023_02_08_191129_create_entidadables_table.php
     - app/Models/backend/Categoria.php
     - app/Models/backend/Perfil.php
     - app/Models/backend/UserSetting.php
@@ -47,11 +47,11 @@ created:
     - app/Models/banca/Traspaso.php
     - app/Models/banca/Movimiento.php
 models:
-    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, two_factor_secret: 'text nullable', two_factor_recovery_codes: 'text nullable', two_factor_confirmed_at: 'datetime nullable', role: 'enum:admin,user,cliente,vendedor', is_active: 'boolean nullable default:1', remember_token: 'string:100 nullable', current_team_id: 'biginteger unsigned nullable', profile_photo_path: 'string:2048 nullable' }
+    User: { name: 'string:191', email: 'string:191', email_verified_at: 'datetime nullable', password: 'string:191', two_factor_secret: 'text nullable', two_factor_recovery_codes: 'text nullable', two_factor_confirmed_at: 'datetime nullable', role: 'enum:admin,user,cliente,vendedor', is_active: 'boolean nullable default:1', remember_token: 'string:100 nullable', current_team_id: 'biginteger unsigned nullable', profile_photo_path: 'string:2048 nullable' }
     backend\Categoria: { nombre: 'string:45 nullable default:null unique', babosa: "string:45 nullable default:null charset:'utf8'", softdeletes: softDeletes, relationships: { morphedByMany: 'Post, Video, Imagen' } }
-    backend\Perfil: { id: false, user_id: 'id foreign:users.id primary', edad: unsignedTinyInteger, id_profesion: 'unsignedTinyInteger nullable default:null', biografia: "longtext default:null charset:'utf8'", website: "string:128 default:null charset:'utf8'", softdeletes: softDeletes, relationships: { hasOne: User } }
-    backend\UserSetting: { id: false, user_id: 'id foreign:users.id', theme: "string:20 default:'dark' charset:'utf8'", language: "string:5 default:'fr-FR' charset:'utf8'", autologin: 'boolean default:true', softdeletes: softDeletes }
-    backend\Marcador: { nombre: "string:45 nullable default:null unique charset:'utf8'", babosa: "string:45 nullable default:null charset:'utf8'", hexa: "string:7 unique default:'#' charset:'utf8'", imagen: "string:128 nullable default:null charset:'utf8'", rgb: "string:20 nullable default:null charset:'utf8'", metadata: 'json nullable', activo: 'boolean default:true', softdeletes: softDeletes, relationships: { morphedByMany: 'Post:postIndex, Video:videoIndex, Imagen:imagenIndex' } }
+    backend\Perfil: { id: false, user_id: 'id foreign:users.id primary', edad: unsignedTinyInteger, id_profesion: 'unsignedTinyInteger nullable default:null', biografia: "longtext default:null charset:'utf8'", website: "string:128 default:null charset:'utf8'", softdeletes: softDeletes, relationships: { hasOne: 'User:user1' } }
+    backend\UserSetting: { id: false, user_id: 'id foreign:users.id', theme: "string:20 default:'dark' charset:'utf8'", language: "string:5 default:'fr-FR' charset:'utf8'", autologin: 'boolean default:true', softdeletes: softDeletes, relationships: { hasOne: 'User:user1' } }
+    backend\Marcador: { nombre: "string:45 nullable default:null unique charset:'utf8'", babosa: "string:45 nullable default:null charset:'utf8'", hexa: "string:7 unique default:'#' charset:'utf8'", imagen: "string:128 nullable default:null charset:'utf8'", rgb: "string:20 nullable default:null charset:'utf8'", metadata: 'json nullable', activo: 'boolean default:true', softdeletes: softDeletes, relationships: { morphedByMany: 'Post:postIndex, Video:videoIndex, Imagen:imagenIndex Movimientos:MovimientoIndex' } }
     backend\Pais: { nombre: 'string:50 unique', bandera: 'string:128 nullable default:null', idioma: 'string:5 nullable default:null', timestamps: false, relationships: { BelongsTo: 'Ciudad:ciudades' } }
     backend\Ciudad: { nombre: 'string:50 nullable default:null', pais_id: 'id foreign nullable default:null', timestamps: false, relationships: { BelongsTo: 'Direccion:direcciones' } }
     backend\Direccion: { numero: 'string:8', calle: 'string:50', codPostal: 'string:6', ciudad_id: 'id:Ciudad foreign nullable default:null', relationships: { BelongsTo: 'Entidad:xEntidades' } }
@@ -60,5 +60,5 @@ models:
     backend\Tabla: { id: false, tabla: bigInteger, tabla_id: bigInteger, nombre: "string:45 charset:'utf8'", descripcion: "string:128 nullable default:null charset:'utf8'", activo: 'boolean nullable default:true', valor1: 'decimal:8,2 nullable default:null', valor2: 'string:128 nullable default:null', valor3: 'boolean nullable default:false', indexes: [{ primary: 'tabla, tabla_id' }, { index: nombre }], softdeletes: softDeletes }
     ventas\Cliente: { nombre: string, relationships: { BelongsToMany: 'Movimiento:xMovimientos' } }
     compras\Vendedor: { nombre: string }
-    banca\Traspaso: { id: false, cuenta: 'string:12 nullable default:5578733W020', tipo: 'string:3 nullable default:CCP', date: 'timestamp nullable', libelle: text, montant: 'decimal:8,2', archivo: 'string:20', softdeletes: softDeletes }
-    banca\Movimiento: { cuenta: 'string:12 nullable default:5578733W020', tipo: 'string:3 nullable default:CCP', date: timestamp, libelle: string, montant: 'decimal:8,2', cliente_id: 'bigInteger nullable default:null', indexes: [{ index: 'cuenta, date' }], softdeletes: softDeletes }
+    banca\Traspaso: { dateImportation: 'date nullable default_format:"Y-m-d"', libelle: text, montant: 'decimal:8,2 nullable default:0', archivo: 'string:100 nullable default:null', dupTxt: "text charset:'utf8'", archivado: 'unsignedBigInteger nullable default:0', timestamps: false }
+    banca\Movimiento: { cuenta: 'string:12 nullable default:5578733W020', tipo: 'string:3 nullable default:CCP', dateMouvement: 'date nullable default_format:"Y-m-d"', libelle: text, montant: 'decimal:8,2', cliente_id: 'bigInteger nullable default:null', releve: 'bigInteger nullable default:null', dateReleve: 'date nullable default_format:"Y-m-d"', indexes: [{ index: 'cuenta, dateMouvement' }], softdeletes: softDeletes }

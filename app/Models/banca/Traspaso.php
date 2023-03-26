@@ -4,11 +4,17 @@ namespace App\Models\banca;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Traspaso extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -16,12 +22,12 @@ class Traspaso extends Model
      * @var array
      */
     protected $fillable = [
-        'cuenta',
-        'tipo',
-        'date',
+        'dateImportation',
         'libelle',
         'montant',
         'archivo',
+        'dupTxt',
+        'archivado',
     ];
 
     /**
@@ -30,7 +36,9 @@ class Traspaso extends Model
      * @var array
      */
     protected $casts = [
-        'date' => 'timestamp',
+        'id' => 'integer',
+        'dateImportation' => 'date',
         'montant' => 'decimal:2',
+        'archivado' => 'integer',
     ];
 }

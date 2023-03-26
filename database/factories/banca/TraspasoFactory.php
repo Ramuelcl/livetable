@@ -23,12 +23,12 @@ class TraspasoFactory extends Factory
     public function definition()
     {
         return [
-            'cuenta' => $this->faker->regexify('[A-Za-z0-9]{12}'),
-            'tipo' => $this->faker->regexify('[A-Za-z0-9]{3}'),
-            'date' => $this->faker->dateTime(),
+            'dateImportation' => $this->faker->date(),
             'libelle' => $this->faker->text,
             'montant' => $this->faker->randomFloat(2, 0, 999999.99),
-            'archivo' => $this->faker->regexify('[A-Za-z0-9]{20}'),
+            'archivo' => $this->faker->regexify('[A-Za-z0-9]{100}'),
+            'dupTxt' => $this->faker->text,
+            'archivado' => $this->faker->randomNumber(),
         ];
     }
 }

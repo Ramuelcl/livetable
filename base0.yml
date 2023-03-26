@@ -16,7 +16,7 @@ models:
     website: string:128 default:null charset:'utf8'
     softDeletes: true
     relationships:
-      hasOne: User
+      hasOne: User:user1
 
   backend\UserSetting:
     id: false
@@ -25,8 +25,8 @@ models:
     language: string:5 default:'fr-FR' charset:'utf8'
     autologin: boolean default:true
     softDeletes: true
-    # relationships:
-    #   hasOne: User
+    relationships:
+      hasOne: User:user1
 
   backend\Marcador:
     nombre: string:45 nullable default:null unique charset:'utf8'
@@ -38,7 +38,7 @@ models:
     activo: boolean default:true
     softDeletes: true
     relationships:
-      morphedByMany: Post:postIndex, Video:videoIndex, Imagen:imagenIndex
+      morphedByMany: Post:postIndex, Video:videoIndex, Imagen:imagenIndex Movimientos:MovimientoIndex
 
   backend\Pais:
     nombre: string:50 unique
@@ -70,12 +70,14 @@ models:
       BelongsToMany: Entidad:xEntidades
 
   backend\Entidad:
+    id: false
     tipo: enum:perfil,cliente,proveedor,cli_pro
     razonSocial: string:128
     nombres: string:80
     apellidos: string:80
     activo: boolean default:true
     eMail: string unique
+    timestamps: false
     relationships:
       hasMany: Direccion:xDirecciones, Telefono:xTelefonos
       morphedByMany: Cliente:clienteIndex, Vendedor:vendedorIndex, Perfil:perfilIndex, Movimiento:movimientoIndex
@@ -96,7 +98,6 @@ models:
     softDeletes: true
 
   ventas\Cliente:
-    nombre: string
     relationships:
       BelongsToMany: Movimiento:xMovimientos
 
@@ -104,24 +105,25 @@ models:
     nombre: string
 
   banca\Traspaso:
-    id: false
-    cuenta: string:12 nullable default:5578733W020
-    tipo: string:3 nullable default:CCP
-    date: timestamp nullable
+    dateImportation: date nullable default_format:"Y-m-d"
     libelle: text
-    montant: decimal:8,2
-    archivo: string:20
-    softDeletes: true
+    montant: decimal:8,2 nullable default:0
+    archivo: string:100 nullable default:null
+    dupTxt: text charset:'utf8'
+    archivado: unsignedBigInteger nullable default:0
+    timestamps: false
 
   banca\Movimiento:
     cuenta: string:12 nullable default:5578733W020
     tipo: string:3 nullable default:CCP
-    date: timestamp
-    libelle: string
+    dateMouvement: date nullable default_format:"Y-m-d"
+    libelle: text
     montant: decimal:8,2
     cliente_id: bigInteger nullable default:null
+    releve: bigInteger nullable default:null
+    dateReleve: date nullable default_format:"Y-m-d"
     indexes:
-      - index: cuenta, date
+      - index: cuenta, dateMouvement
     softDeletes: true
 
 # seeder: Pais, Ciudad, Direccion, Entidad, Tabla

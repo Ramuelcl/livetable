@@ -9,6 +9,8 @@
 // ejecutar: composer dump-autoload
 
 //
+
+
 if (!function_exists('fncGlob_Files')) {
     // TODO: recursividad en directorios
     function fncGlob_Files($folder, $name = '*', $ext = 'jpg,jpeg,png', $limit = 0, $sec = 0, $recur = false)
@@ -100,7 +102,72 @@ if (!function_exists('images')) {
 if (!function_exists('productImagePath')) {
     function productImagePath($image_name)
     {
-        return public_path('images/products/' . $image_name);
+        return public_path('/storage/images/products/' . $image_name);
+    }
+}
+
+// Regex quick reference
+// [abc]     A single character: a, b or c
+// [^abc]     Any single character but a, b, or c
+// [a-z]     Any single character in the range a-z
+// [a-zA-Z]     Any single character in the range a-z or A-Z
+// ^     Start of line
+// $     End of line
+// \A     Start of string
+// \z     End of string
+// .     Any single character
+// \s     Any whitespace character
+// \S     Any non-whitespace character
+// \d     Any digit
+// \D     Any non-digit
+// \w     Any word character (letter, number, underscore)
+// \W     Any non-word character
+// \b     Any word boundary character
+// (...)     Capture everything enclosed
+// (a|b)     a or b
+// a?     Zero or one of a
+// a*     Zero or more of a
+// a+     One or more of a
+// a{3}     Exactly 3 of a
+// a{3,}     3 or more of a
+// a{3,6}     Between 3 and 6 of a
+
+// options: i case insensitive m make dot match newlines x ignore whitespace in regex o perform #{...} substitutions only once
+if (!function_exists('fncRegex')) {
+    function fncRegex(string $str, $pattern = 'Any digit:?', $oneNotAll = true)
+
+    {
+        $p = explode(':', $pattern);
+        $pattern = $p[0];
+        $value = null;
+        if (sizeof($p) > 1) {
+            $value = $p[1];
+        }
+        // dd($p, $pattern, $value);
+        switch ($pattern) {
+            case 'Any digit':
+                $pattern = '/d+/';
+                break;
+            case 'single character lowercase':
+                $pattern = '/[a-z]/';
+                break;
+            case 'single character uppercase':
+                $pattern = '/[a-zA-Z]/';
+                break;
+        }
+
+        $matches = null;
+        if ($oneNotAll) {
+            if (preg_match($pattern, $str, $matches)) {
+                print_r($matches);
+            }
+        } else {
+            if (preg_match_all($pattern, $str, $matches)) {
+                print_r($matches);
+            }
+        }
+
+        return $matches;
     }
 }
 
@@ -111,10 +178,61 @@ if (!function_exists('setActive')) {
     }
 }
 
-if (!function_exists('changeDateFormate')) {
-    function changeDateFormate($date, $date_format)
+if (!function_exists('fncChangeNumberFormate')) {
+    function fncChangeNumberFormate($strNum, $float = false)
     {
-        return \Carbon\Carbon::createFromFormat('Y-m-d', $date)->format($date_format);
+        // PRIMERA OPCION
+        if (strpos($strNum, ',') > 0) {
+            $explode = explode(',', $strNum);
+            $float = true;
+        } elseif (strpos($strNum, '.') > 0) {
+            $explode = explode('.', $strNum);
+            $float = true;
+        } else
+            $implode[] = $strNum;
+        if ($float) {
+            $implode = implode('.', $explode);
+            $num = floatval($implode);
+        } else
+            $num = intval($implode);
+
+        // SEGUNDA OPCION
+        // if (sizeof($explode) > 1) {
+        //     // viene con decimales
+        //     if ($float)
+        //         $num = (float)((int)$explode[0] . '.' . (int)$explode[1]);
+        //     else
+        //         $num = (int)$explode[0];
+        // } else {
+        //     if ($float)
+        //         $num = (float)((int)$explode . '.0');
+        //     else
+        //         $num = (int)$explode;
+        // }
+        return ($num);
+    }
+}
+
+if (!function_exists('fncChangeDateFormate')) {
+    function fncChangeDateFormate($strFecha, $formato = "Ymd")
+    {
+        $dtz = 'America/Santiago';
+        $DateTimeZone = 'Europe/Paris'; //print_r(DateTimeZone::listIdentifiers());
+        // $date = \Carbon\Carbon::parse($strFecha, $dtz);
+        $explode = explode('/', $strFecha);
+
+        $implode = implode('/', [$explode[1], $explode[0], $explode[2]]);
+        $date = \Carbon\Carbon::parse(
+            $implode,
+            $DateTimeZone
+        );
+        // $strtotime = strtotime($implode);
+
+        // dump([$strFecha => $date],);
+        // dump([$strFecha => $date], ['explode' => $explode], ['implode' => $implode], ['strtotime' => $strtotime], ['DateTimeZone' => $DateTimeZone],);
+        // sleep(8);
+        return $date;
+        // return $date->format($formato);
     }
 }
 
@@ -137,35 +255,108 @@ if (!function_exists('getIniciales')) {
     }
 }
 
-if (!function_exists('limpiar_caracteres')) {
-    function limpiar_caracteres($string)
+if (!function_exists('fncCambiaCaracteresEspeciales')) {
+    function fncCambiaCaracteresEspeciales($string, array $arreglo = [])
     {
-        //función para limpiar strings
-        $string = trim($string);
+        if (!count($arreglo)) {
+            $arreglo = array(
+                ['á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'],
+                ['a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'],
+                ['é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'],
+                ['e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'],
+                ['í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'],
+                ['i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'],
+                ['ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'],
+                ['o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'],
+                ['ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'],
+                ['u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'],
+                ['ñ', 'Ñ', 'ç', 'Ç'], ['n', 'N', 'c', 'C'],
+                ['|', '!', '·', "$", '%', '&', '/', '(', ')', '?', "'", '¡', '¿', '[', '^', '<code>', ']', '+', '}', '{', '¨', '´', '>', '<', ';', ',', ':', ' ', '"'],
+                ['']
+            );
+            //función para limpiar strings
+            for ($i = 0; $i < count($arreglo) - 1; $i = $i + 2) {
+                $string = str_replace($arreglo[$i], $arreglo[$i + 1], $string);
+            }
+            $string = trim($string);
 
-        $string = str_replace(['á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'], ['a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'], $string);
-
-        $string = str_replace(['é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'], ['e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'], $string);
-
-        $string = str_replace(['í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'], ['i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'], $string);
-
-        $string = str_replace(['ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'], ['o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'], $string);
-
-        $string = str_replace(['ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'], ['u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'], $string);
-
-        $string = str_replace(['ñ', 'Ñ', 'ç', 'Ç'], ['n', 'N', 'c', 'C'], $string);
-
-        //Esta parte se encarga de eliminar cualquier caracter extraño
-        $string = str_replace(['|', '!', '', '·', "$", '%', '&', '/', '(', ')', '?', "'", '¡', '¿', '[', '^', '<code>', ']', '+', '}', '{', '¨', '´', '>', '< ', ';', ',', ':', ' '], '', $string);
-
-        return $string;
-    }
-
-    if (!function_exists('fncHexa_Rgb')) {
-        function fncHexa_Rgb($hexa)
-        {
-            [$r, $g, $b] = \sscanf($hexa, '#%02x%02x%02x');
-            return "rgb($r,$g,$b)";
+            return $string;
         }
+    }
+}
+if (!function_exists('fncHexa_Rgb')) {
+    function fncHexa_Rgb($hexa)
+    {
+        [$r, $g, $b] = \sscanf($hexa, '#%02x%02x%02x');
+        return "rgb($r,$g,$b)";
+    }
+}
+
+/**
+ * Funcion para eliminar los valores duplicados consecutivos en cada palabra
+ * de una frase
+ *
+ * @param string $str
+ *
+ * @return string
+ */
+if (!function_exists('fncElimCaracterDuplicado')) {
+    function fncElimCaracterDuplicado($str)
+    {
+        return implode(
+            " ",
+            array_map(
+                function ($palabra) {
+                    preg_match_all('/./u', $palabra, $matches);
+                    return array_reduce(
+                        $matches[0],
+                        function ($acum, $letra) {
+                            return $acum == null || ($acum[-1] != $letra && substr($acum, -2) != $letra) ? $acum . $letra : $acum;
+                        }
+                    );
+                },
+                explode(" ", preg_replace('/\s+/', ' ', $str))
+            )
+        );
+    }
+}
+
+/**
+ * Funcion para buscar archivo(s) en un directorio o subdirectorios
+ *
+ * @param string $path  directorio padre
+ * @param array $files  nombre(s) de archivo(s) default=*
+ * @param array $ext    nombre(s) de extension(es) default=*
+ * @param array $exc    excluir del resultado default='dir', 'file'
+ *
+ * @return array | false
+ */
+if (!function_exists('fncBuscaArchivos')) {
+    function fncBuscaArchivos($path, $files = ['*'], $ext = ['*'], $exc = ['dir', 'file'])
+    {
+        static $mapa;
+
+        if (is_dir($path)) {
+
+            #Obtener un arreglo con directorios y archivos
+            $subdirectorios_o_archivos = scandir($path);
+            foreach ($subdirectorios_o_archivos as $subdirectorio_o_archivo) {
+
+                # Omitir . y .., pues son directorios
+                # que se refieren al directorio actual
+                # o al directorio padre
+                if ($subdirectorio_o_archivo != "." && $subdirectorio_o_archivo != "..") {
+
+                    # Si es un directorio, recursión
+                    if (is_dir($path . "/" . $subdirectorio_o_archivo)) {
+                        fncBuscaArchivos($path . "/" . $subdirectorio_o_archivo, $files, $ext, $exc);
+                    } else {
+                        # Si es un archivo, lo eliminamos con unlink
+                        $mapa["$path"] =  $subdirectorio_o_archivo;
+                    }
+                }
+            }
+        }
+        return $mapa;
     }
 }

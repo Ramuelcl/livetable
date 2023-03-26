@@ -14,6 +14,10 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- FontAwesome 6.2.1 -->
+    <!-- <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}"> -->
+    <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.min.css')}}">
+
     <!-- flowbite -->
     <!-- Require the JavaScript code that powers the interactive elements before the end of your <body> tag: -->
     <script>
@@ -34,7 +38,7 @@
 
     <div class="min-h-screen">
         @livewire('navigation-menu')
-
+        <livewire:flash />
         <!-- Page Heading -->
         @if (isset($header))
         <header class="bg-gray-200 dark:bg-gray-800 shadow">

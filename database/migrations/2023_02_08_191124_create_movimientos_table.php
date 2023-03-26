@@ -19,12 +19,14 @@ class CreateMovimientosTable extends Migration
             $table->id();
             $table->string('cuenta', 12)->nullable()->default('5578733W020');
             $table->string('tipo', 3)->nullable()->default('CCP');
-            $table->timestamp('date');
-            $table->string('libelle');
+            $table->date('dateMouvement')->nullable();
+            $table->text('libelle');
             $table->decimal('montant', 8, 2);
             $table->bigInteger('cliente_id')->nullable()->default(null);
+            $table->bigInteger('releve')->nullable()->default(null);
+            $table->date('dateReleve')->nullable();
             $table->softDeletes();
-            $table->index(['cuenta', 'date']);
+            $table->index(['cuenta', 'dateMouvement']);
             $table->timestamps();
         });
 

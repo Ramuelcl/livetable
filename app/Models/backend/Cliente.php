@@ -5,7 +5,7 @@ namespace App\Models\backend;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Entidad extends Model
+class Cliente extends Model
 {
     use HasFactory;
 
@@ -21,6 +21,8 @@ class Entidad extends Model
         'apellidos',
         'activo',
         'eMail',
+        'created_at',
+        'updated_at',
     ];
 
     /**
