@@ -104,12 +104,12 @@ class LiveTable extends Component
     }
 
     // orden y filtro
-    public $sortField = 'id', $sortDir = 'Desc';
+    public $sortField = 'id', $sortDir = 'desc';
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'sortField' => ['except' => 'id'],
-        'sortDir' => ['except' => 'Desc'],
+        // 'sortField' => ['except' => 'id'],
+        // 'sortDir' => ['except' => 'desc'],
     ];
 
     public function __construct($bSearch = true, $bActive = true)
