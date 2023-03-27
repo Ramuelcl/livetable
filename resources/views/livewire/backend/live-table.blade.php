@@ -15,7 +15,7 @@
       @endif
       @if ($bSearch || $bActive)
         <button wire:click="fncClear()" class="btn btn-green justify-between text-xs"><i
-            class="fa-solid fa-eraser"></i>{{ __($display['clear']) }}</button>
+            class="fa-solid fa-eraser">C</i>{{ __($display['clear']) }}</button>
       @endif
     </div>
 
@@ -52,7 +52,7 @@
             {{ __('actions') }}
             {{-- @hasanyrole('admin') --}}
             <button wire:click="fncNewEdit(0)" class="btn btn-blue w-min-7 justify-between"><i
-                class="fa-solid fa-plus"></i>
+                class="fa-solid fa-plus">+</i>
               <div class="">
                 {{ __($display['new']) }}
               </div>
@@ -108,13 +108,13 @@
           <td colspan="2" scope="colgroup" class="whitespace-nowrap px-6 py-4">
             {{-- @hasanyrole('admin') --}}
             <button wire:click="fncNewEdit({{ $reg->id }})" class="btn btn-green justify-between text-xs"><i
-                class="fa-solid fa-pen"></i>
+                class="fa-solid fa-pen">E</i>
               {{ __($display['edit']) }}
             </button>
             {{-- @endhasanyrole --}}
             {{-- @hasanyrole('admin') --}}
             <button wire:click="fncDeleteConfirm({{ $reg->id }})" wire:loading.attr="disabled"
-              class="btn btn-red justify-between text-xs"><i class="fa-solid fa-minus"></i>
+              class="btn btn-red justify-between text-xs"><i class="fa-solid fa-minus">-</i>
               {{ __($display['delete']) }}
             </button>
             {{-- @endhasanyrole --}}

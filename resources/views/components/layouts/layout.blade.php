@@ -15,11 +15,14 @@
 
     <!-- FontAwesome 6.2.1 -->
     <!-- <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}"> -->
-    <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.min.css')}}">
+    <!-- <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.min.css')}}"> -->
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    <!-- ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- ionicons -->
     <!-- flowbite -->
     <!-- Require the JavaScript code that powers the interactive elements before the end of your <body> tag: -->
     <script>
