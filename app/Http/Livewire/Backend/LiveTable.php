@@ -4,8 +4,7 @@ namespace App\Http\Livewire\Backend;
 
 use App\Models\User as Item;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 
 class LiveTable extends Component
 {
@@ -16,11 +15,11 @@ class LiveTable extends Component
 
     protected $collection;
     public $collectionView = 5;
-    public $collectionViews = array('5', '10', '25', '50');
+    public $collectionViews = array('5', '10', '25', '50', 'All');
 
     // elemento de busqueda
     public $bSearch;
-    public $search;
+    public $search = '';
 
     // elemento activo
     public $bActive;
@@ -94,6 +93,7 @@ class LiveTable extends Component
     /** escuchas */
     protected $listeners = [
         'Search' => 'fncSearch',
+        'updatingSearch',
         // 'roleUpdating' => 'render',
     ];
 
@@ -101,7 +101,6 @@ class LiveTable extends Component
     {
         // dd('llegó a live-table.blade:', $search);
         $this->search = $search;
-        $this->render();
     }
 
     // orden y filtro
@@ -149,8 +148,11 @@ class LiveTable extends Component
                 return $query->active($query);
             });
 
-        $this->collection = $this->collection->paginate($this->collectionView);
         $this->fncTotalRegs();
+        if ($this->collectionView == "All")
+            $this->collection = $this->collection->paginate($this->TotalRegs);
+        else
+            $this->collection = $this->collection->paginate($this->collectionView);
         // $this->permisos = Permission::all();
     }
 
@@ -163,10 +165,21 @@ class LiveTable extends Component
     {
         $this->resetErrorBag();
         $this->resetPage();
-        $this->reset(['collection', 'search', 'activeAll', 'sortField', 'sortDir']);
+        $this->reset(['collection', 'search', 'activeAll', 'sortField', 'sortDir', 'collectionView']);
         // $this->reset();
         $this->emit('fncSearchClear');
     }
+    public function updatingSearch()
+    {
+        // dd('llegó updating');
+        $this->resetPage();
+    }
+    public function updatedSearch()
+    {
+        // dd('llegó updated');
+        $this->resetPage();
+    }
+
 
     public function fncOrden($sortField = 'id')
     {
@@ -182,8 +195,10 @@ class LiveTable extends Component
 
         $this->updatedQuery();
     }
-    // getter & setter
 
+
+    // getter & setter
+    //
     public function sortField(): Attribute
     {
         return new Attribute(

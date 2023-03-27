@@ -29,13 +29,25 @@ module.exports = {
     // darkMode: 'media',
     // ...
     theme: {
+        screens: {
+            'sm': '640px',
+            'md': '768px',
+            'lg': '1024px',
+            'xl': '1280px',
+        },
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
         },
     },
-
+    variants: {
+        backgroundColor: ['responsive', 'hover', 'focus', 'active', 'checked', 'odd'],
+        // ...
+        tableLayout: ['responsive', 'hover', 'focus'],
+        // ...
+        opacity: ['responsive', 'hover', 'focus', 'disabled'],
+    },
     plugins: [
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),

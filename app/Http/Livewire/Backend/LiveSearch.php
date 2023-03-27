@@ -24,4 +24,8 @@ class LiveSearch extends Component
     {
         $this->reset(['search']);
     }
+    public function updatingSearch()
+    {
+        $this->emit('updatingSearch');
+    }
 }

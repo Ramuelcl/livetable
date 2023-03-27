@@ -51,8 +51,9 @@
           <th class="mx-4 flex justify-between py-2" colspan="2" scope="colgroup">
             {{ __('actions') }}
             {{-- @hasanyrole('admin') --}}
-            <button wire:click="fncNewEdit(0)" class="btn btn-blue w-7"><i class="fa-solid fa-plus"></i>
-              <div class="text-center md:hidden">
+            <button wire:click="fncNewEdit(0)" class="btn btn-blue w-min-7 justify-between"><i
+                class="fa-solid fa-plus"></i>
+              <div class="">
                 {{ __($display['new']) }}
               </div>
             </button>
@@ -64,11 +65,10 @@
         @php
           $cl = ($key + 1) % 2 === 0 ? '50' : '400';
         @endphp
-        <tr
-          class="bg-gray-{{ $cl }} dark:bg-gray-{{ $cl == '50' ? $cl + 450 : $cl + 400 }} border-b hover:bg-gray-300 dark:border-gray-700 dark:hover:bg-gray-600">
+        <tr>
           @foreach ($fields as $field)
             @if ($field['table']['display'])
-              <td class="whitespace-nowrap px-2 py-4 text-sm text-gray-500">
+              <td class="whitespace-nowrap px-2 py-4 text-sm">
                 @switch($field['name'])
                   @case('id')
                     <!-- // relleno de ceros -->
@@ -108,13 +108,13 @@
           <td colspan="2" scope="colgroup" class="whitespace-nowrap px-6 py-4">
             {{-- @hasanyrole('admin') --}}
             <button wire:click="fncNewEdit({{ $reg->id }})" class="btn btn-green justify-between text-xs"><i
-                class="fa-solid fa-user-pen"></i>
+                class="fa-solid fa-pen"></i>
               {{ __($display['edit']) }}
             </button>
             {{-- @endhasanyrole --}}
             {{-- @hasanyrole('admin') --}}
             <button wire:click="fncDeleteConfirm({{ $reg->id }})" wire:loading.attr="disabled"
-              class="btn btn-red justify-between text-xs"><i class="fa-solid fa-user-minus"></i>
+              class="btn btn-red justify-between text-xs"><i class="fa-solid fa-minus"></i>
               {{ __($display['delete']) }}
             </button>
             {{-- @endhasanyrole --}}

@@ -1,5 +1,5 @@
 .table {
-    @apply table-fixed w-full border rounded border-separate lg:border-collapse;
+    @apply table-auto w-full border rounded border-separate lg:border-collapse;
 }
 
 
@@ -12,7 +12,17 @@
     @apply text-gray-800 dark:text-gray-50;
 }
 
+.table tbody tr {
+    @apply bg-gray-300 dark:bg-gray-600;
+    @apply text-black dark:text-white;
+
+    @apply hover:bg-blue-500 dark:hover:bg-blue-500;
+}
 .table tbody tr:nth-child(2n+1) {
     @apply bg-gray-100 dark:bg-gray-400;
+    @apply text-black dark:text-white;
+
+    @apply hover:bg-blue-500 dark:hover:bg-blue-500;
+
 }
 
